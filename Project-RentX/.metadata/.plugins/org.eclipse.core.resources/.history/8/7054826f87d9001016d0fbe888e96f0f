@@ -1,0 +1,5 @@
+package com.rentx.carrental.exception;
+
+public class SqlInjectionAttemptException {
+
+}

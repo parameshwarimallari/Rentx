@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="crea"/>
+			<item value="double discount"/>
+			<item value="if (&quot;payNow&quot;.equals(request.getPaymentOption())) {"/>
+			<item value="double disc"/>
+			<item value="createExtensionContent"/>
+			<item value="sendExtensionConfirmation"/>
+			<item value="createBooking"/>
+			<item value="getPe"/>
+			<item value="findByCarCarIdAndDatesBetween"/>
+			<item value="convertToResponse"/>
+			<item value="/profile"/>
+			<item value="@PostMapping(&quot;/{id}/return&quot;)"/>
+			<item value="Query"/>
+			<item value="markAsPaid"/>
+			<item value="formatDate"/>
+		</list>
+	</section>
+</section>

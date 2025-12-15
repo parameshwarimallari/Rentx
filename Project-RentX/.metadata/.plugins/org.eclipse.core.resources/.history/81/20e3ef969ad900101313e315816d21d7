@@ -1,0 +1,18 @@
+# 🔐 JWT Configuration 
+JWT_SECRET=ThisIsAVeryLongAndSecureSecretKeyForJWT256Bits!
+
+# 💳 RazorPay Configuration (Generate NEW keys from dashboard)
+RAZORPAY_KEY_ID=rzp_test_RiNMfqA6qj6lN2
+RAZORPAY_KEY_SECRET=JK52pVTAwwqwJwmPSNdKiFgJ
+
+# 📧 Email Configuration (Use App Password, NOT regular password)
+EMAIL_USERNAME=parameshwarimallari5@gmail.com
+EMAIL_PASSWORD=aorw jegn xbfo asgc
+
+
+# Google OAuth (Optional but also exposed!)
+GOOGLE_CLIENT_ID=1009823409375-mguldsqggqf9giip5k97gkqtt296cvn0.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+
+
+DATABASE_PASSWORD=123456

@@ -1,0 +1,5 @@
+package com.rentx.carrental.util;
+
+public class SqlInjectionProtectionUtil {
+
+}

@@ -1,0 +1,5 @@
+package com.rentx.carrental.config;
+
+public class CorsConfig {
+
+}
