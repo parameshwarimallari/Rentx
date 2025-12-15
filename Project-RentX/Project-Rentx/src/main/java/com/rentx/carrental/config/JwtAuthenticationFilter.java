@@ -29,12 +29,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, 
                                   HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
+        
         String requestPath = request.getServletPath();
-        String token = getTokenFromRequest(request);
-        if (requestPath.startsWith("/api/auth/")) {
+        
+        if (requestPath.startsWith("/api/auth/") || 
+            requestPath.startsWith("/api/cars/") ||
+            requestPath.startsWith("/api/health/") ||
+            requestPath.startsWith("/api/reviews/") ||
+            requestPath.equals("/") || 
+            requestPath.equals("/error")) {
+            
             filterChain.doFilter(request, response);
             return;
         }
+        
+        String token = getTokenFromRequest(request);
+        
         if (token != null && jwtTokenProvider.validateToken(token)) {
             String username = jwtTokenProvider.getUsernameFromJWT(token);
             
