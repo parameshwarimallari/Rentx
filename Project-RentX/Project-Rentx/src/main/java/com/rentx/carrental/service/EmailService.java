@@ -242,7 +242,6 @@ public class EmailService {
 				booking.getCar().getModel(), formatDate(booking.getEndDate()),
 				formatDate(booking.getActualReturnTime())));
 
-		// ✅ ADD LATE PENALTY INFO
 		if (booking.getIsLateReturn() != null && booking.getIsLateReturn()) {
 			content.append(String.format("• ⏰ Late Return Fee: ₹%.2f\n" + "• Late Duration: %d hours\n\n",
 					booking.getLateReturnPenalty(),

@@ -43,7 +43,7 @@ public class AutoCancellationService {
 
 		for (Booking booking : unpaidOnline) {
 			cancelBooking(booking, now, "Auto-cancelled: Online payment not completed within 24 hours");
-			log.info("💰 Cancelled unpaid online booking {} (24h expired)", booking.getId());
+			log.info(" Cancelled unpaid online booking {} (24h expired)", booking.getId());
 		}
 	}
 
@@ -55,7 +55,7 @@ public class AutoCancellationService {
 
 		for (Booking booking : noShows) {
 			cancelBooking(booking, now, "Auto-cancelled: Customer didn't show up for pickup (2+ hours late)");
-			log.info("⏰ Cancelled no-show booking {} (2h late)", booking.getId());
+			log.info(" Cancelled no-show booking {} (2h late)", booking.getId());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class AutoCancellationService {
 		for (Booking booking : lastMinute) {
 			try {
 				emailService.sendPickupReminder(booking.getUser(), booking);
-				log.info("🔔 Sent pickup reminder for booking {}", booking.getId());
+				log.info(" Sent pickup reminder for booking {}", booking.getId());
 			} catch (Exception e) {
 				log.error("Failed to send reminder: {}", e.getMessage());
 			}
@@ -84,7 +84,7 @@ public class AutoCancellationService {
 		if (car != null) {
 			car.setAvailable(true);
 			carRepository.save(car);
-			log.info("🚗 Freed up car {} after cancellation", car.getCarId());
+			log.info(" Freed up car {} after cancellation", car.getCarId());
 		}
 
 		bookingRepository.save(booking);

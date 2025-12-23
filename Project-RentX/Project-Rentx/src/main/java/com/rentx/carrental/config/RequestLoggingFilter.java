@@ -33,7 +33,6 @@ public class RequestLoggingFilter implements Filter {
         long startTime = System.currentTimeMillis();
         String correlationId = getOrGenerateCorrelationId(httpRequest);
         
-        // Set correlation ID in MDC and response header
         MDC.put(CORRELATION_ID_MDC_KEY, correlationId);
         httpResponse.setHeader(CORRELATION_ID_HEADER, correlationId);
         

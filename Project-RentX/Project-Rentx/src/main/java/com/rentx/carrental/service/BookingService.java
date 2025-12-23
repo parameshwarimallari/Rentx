@@ -570,7 +570,7 @@ public class BookingService {
             extraDays = Math.max(1, extraDays);
             double extensionCharge = booking.getCar().getDailyRate() * extraDays;
             
-            System.out.println("💰 Extension charge: " + extraDays + " days × ₹" + 
+            System.out.println("Extension charge: " + extraDays + " days × ₹" + 
                              booking.getCar().getDailyRate() + " = ₹" + extensionCharge);
             
             double originalPrice = booking.getTotalPrice();

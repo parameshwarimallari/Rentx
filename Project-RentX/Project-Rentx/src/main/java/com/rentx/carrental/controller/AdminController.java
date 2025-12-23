@@ -62,12 +62,12 @@ private final BookingRepository bookingRepository;
     @GetMapping("/pending-requests")
     public ResponseEntity<List<AdminRequest>> getPendingRequests() {
         try {
-            System.out.println("📥 Received request for /api/admin/pending-requests");
+            System.out.println("Received request for /api/admin/pending-requests");
             List<AdminRequest> pendingRequests = adminRequestRepository.findByStatusOrderByRequestedAtDesc(AdminRequest.RequestStatus.PENDING);
-            System.out.println("✅ Found " + pendingRequests.size() + " pending requests");
+            System.out.println("Found " + pendingRequests.size() + " pending requests");
             return ResponseEntity.ok(pendingRequests);
         } catch (Exception e) {
-            System.err.println("❌ Error in /api/admin/pending-requests: " + e.getMessage());
+            System.err.println("Error in /api/admin/pending-requests: " + e.getMessage());
             return ResponseEntity.status(500).body(null);
         }
     }
@@ -75,13 +75,13 @@ private final BookingRepository bookingRepository;
     public ResponseEntity<?> processAdminRequest(@PathVariable Long requestId, 
                                                @RequestBody Map<String, String> request) {
         try {
-            System.out.println("🎯 POST /api/admin/requests/" + requestId + "/action called");
+            System.out.println("POST /api/admin/requests/" + requestId + "/action called");
             String action = request.get("action");
             String notes = request.get("notes");
             AdminRequest processedRequest = adminRequestService.processAdminRequest(requestId, action, notes);
             return ResponseEntity.ok(processedRequest);
         } catch (Exception e) {
-            System.err.println("❌ Error in processAdminRequest: " + e.getMessage());
+            System.err.println("Error in processAdminRequest: " + e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -89,18 +89,18 @@ private final BookingRepository bookingRepository;
     @GetMapping("/requests/user/{userId}")
     public ResponseEntity<List<AdminRequest>> getAdminRequestsByUserId(@PathVariable Long userId) {
         try {
-            System.out.println("🎯 GET /api/admin/requests/user/" + userId + " called");
+            System.out.println(" GET /api/admin/requests/user/" + userId + " called");
             List<AdminRequest> userRequests = adminRequestRepository.findByUserId(userId);
             return ResponseEntity.ok(userRequests);
         } catch (Exception e) {
-            System.err.println("❌ Error in getAdminRequestsByUserId: " + e.getMessage());
+            System.err.println(" Error in getAdminRequestsByUserId: " + e.getMessage());
             return ResponseEntity.status(500).body(null);
         }
     }
 
 @GetMapping("/test")
 public ResponseEntity<String> testEndpoint() {
-    System.out.println("✅ AdminController is working!");
+    System.out.println("AdminController is working!");
     return ResponseEntity.ok("AdminController is working properly!");
 }
 @GetMapping("/users")
@@ -146,8 +146,8 @@ private UserDTO convertToUserDTO(User user) {
 
 @PostConstruct
 public void init() {
-    System.out.println("✅ AdminController initialized!");
-    System.out.println("✅ Endpoints registered:");
+    System.out.println("AdminController initialized!");
+    System.out.println("Endpoints registered:");
     System.out.println("   - GET /api/admin/pending-requests");
     System.out.println("   - POST /api/admin/requests/{requestId}/action"); 
     System.out.println("   - GET /api/admin/requests");

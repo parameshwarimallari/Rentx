@@ -20,7 +20,7 @@ public class Payment {
     
     private Double amount;
     private String currency = "INR";
-    private String status; // CREATED, CAPTURED, FAILED, REFUNDED, PARTIALLY_REFUNDED
+    private String status; 
     private LocalDateTime paymentDate;
     private LocalDateTime refundDate;
     private Double refundAmount;

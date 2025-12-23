@@ -42,25 +42,20 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authz -> authz
-						// Public endpoints
 						.requestMatchers("/api/auth/**").permitAll()
 						.requestMatchers("/api/health/**").permitAll()
 						.requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 						
-						// Cars: GET public, others require authentication
 						.requestMatchers(HttpMethod.GET, "/api/cars/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/cars/**").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/api/cars/**").authenticated()
 						.requestMatchers(HttpMethod.DELETE, "/api/cars/**").authenticated()
 						
-						// Reviews: GET public, POST requires authentication
 						.requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/reviews/**").authenticated()
 						
-						// Admin endpoints
 						.requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
 						
-						// Authenticated user endpoints
 						.requestMatchers("/api/bookings/**").authenticated()
 						.requestMatchers("/api/payments/**").authenticated()
 						.requestMatchers("/api/user/**").authenticated()

@@ -40,7 +40,7 @@ public class AdminRequestService {
 
 		AdminRequest request = new AdminRequest();
 		request.setUser(user);
-		request.setMessage(message.trim()); // ✅ Trim whitespace
+		request.setMessage(message.trim()); 
 		request.setStatus(AdminRequest.RequestStatus.PENDING);
 
 		return adminRequestRepository.save(request);
