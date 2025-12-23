@@ -26,22 +26,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String requestPath = request.getServletPath();
+        String method = request.getMethod();
+        
+        // Public endpoints that DON'T need JWT
+        return requestPath.startsWith("/api/auth/") ||
+               requestPath.startsWith("/api/health") ||
+               requestPath.startsWith("/api-docs") ||
+               requestPath.startsWith("/swagger-ui") ||
+               requestPath.equals("/") ||
+               requestPath.equals("/error") ||
+               // Public GET endpoints only (matches SecurityConfig)
+               (requestPath.startsWith("/api/cars") && "GET".equalsIgnoreCase(method)) ||
+               (requestPath.startsWith("/api/reviews") && "GET".equalsIgnoreCase(method));
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, 
                                   HttpServletResponse response, 
                                   FilterChain filterChain) throws ServletException, IOException {
-        
-        String requestPath = request.getServletPath();
-        
-        if (requestPath.startsWith("/api/auth/") || 
-            requestPath.startsWith("/api/cars/") ||
-            requestPath.startsWith("/api/health/") ||
-            requestPath.startsWith("/api/reviews/") ||
-            requestPath.equals("/") || 
-            requestPath.equals("/error")) {
-            
-            filterChain.doFilter(request, response);
-            return;
-        }
         
         String token = getTokenFromRequest(request);
         

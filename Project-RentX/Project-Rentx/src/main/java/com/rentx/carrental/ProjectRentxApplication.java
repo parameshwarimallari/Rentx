@@ -11,6 +11,7 @@ public class ProjectRentxApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectRentxApplication.class, args);
+		System.out.println("successfully--------------");
 	}
 
 }

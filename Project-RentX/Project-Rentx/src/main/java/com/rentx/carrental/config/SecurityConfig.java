@@ -3,6 +3,7 @@ package com.rentx.carrental.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,17 +38,33 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(csrf -> csrf.disable())
+		http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(authz -> authz.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers("/api/cars/**").permitAll().requestMatchers("/api/health/**").permitAll()
-						.requestMatchers("/api/reviews/**").permitAll()
-
+				.authorizeHttpRequests(authz -> authz
+						// Public endpoints
+						.requestMatchers("/api/auth/**").permitAll()
+						.requestMatchers("/api/health/**").permitAll()
+						.requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+						
+						// Cars: GET public, others require authentication
+						.requestMatchers(HttpMethod.GET, "/api/cars/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/cars/**").authenticated()
+						.requestMatchers(HttpMethod.PUT, "/api/cars/**").authenticated()
+						.requestMatchers(HttpMethod.DELETE, "/api/cars/**").authenticated()
+						
+						// Reviews: GET public, POST requires authentication
+						.requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/reviews/**").authenticated()
+						
+						// Admin endpoints
 						.requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-
-						.requestMatchers("/api/bookings/**").authenticated().requestMatchers("/api/payments/**")
-						.authenticated().requestMatchers("/api/user/**").authenticated()
-
+						
+						// Authenticated user endpoints
+						.requestMatchers("/api/bookings/**").authenticated()
+						.requestMatchers("/api/payments/**").authenticated()
+						.requestMatchers("/api/user/**").authenticated()
+						
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
